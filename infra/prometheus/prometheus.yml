@@ -1,0 +1,7 @@
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: 'hukum-api'
+    static_configs:
+      - targets: ['api-1:4000', 'api-2:4000']

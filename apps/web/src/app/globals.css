@@ -1,0 +1,202 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --spark-500: #FFC700;
+  --spark-400: #FFD43B;
+  --spark-300: #FFE066;
+  --spark-100: #FFF6CC;
+  --spark-50: #FFFBEB;
+  --flipkart-blue: #2874F0;
+  --amber-600: #F59E0B;
+  --amber-700: #B45309;
+  --ink-900: #0F0F10;
+  --ink-700: #2A2A2E;
+  --ink-500: #5B5B63;
+  --ink-300: #A1A1AA;
+  --line: #E5E7EB;
+  --surface: #FFFFFF;
+  --surface-alt: #F8F9FA;
+  --neuromorphic-bg: #F0F2F5;
+  --success: #16A34A;
+  --danger: #E11D48;
+  --info: #2563EB;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', 'DM Sans', system-ui, -apple-system, sans-serif;
+  color: var(--ink-900);
+  background-color: #F1F3F6; /* Flipkart classic neutral page backdrop */
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Tabular figures for prices & counters */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ==========================================================================
+   NEUROMORPHISM (Soft UI) Utilities
+   ========================================================================== */
+.neuromorphic-card {
+  background: #FFFFFF;
+  border-radius: 16px;
+  box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.04), -4px -4px 12px rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(229, 231, 235, 0.8);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.neuromorphic-card:hover {
+  box-shadow: 6px 8px 20px rgba(0, 0, 0, 0.07), -6px -6px 16px rgba(255, 255, 255, 1);
+  transform: translateY(-2px);
+}
+
+.neuromorphic-button {
+  background: #FFFFFF;
+  box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.05), -3px -3px 7px rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(229, 231, 235, 0.7);
+  transition: all 0.2s ease;
+}
+
+.neuromorphic-button:hover {
+  box-shadow: 4px 5px 12px rgba(0, 0, 0, 0.08), -4px -4px 10px rgba(255, 255, 255, 1);
+  transform: translateY(-1px);
+}
+
+.neuromorphic-button:active {
+  box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.06), inset -2px -2px 5px rgba(255, 255, 255, 0.8);
+  transform: translateY(0);
+}
+
+.neuromorphic-inset {
+  background: #F8F9FA;
+  box-shadow: inset 2px 2px 6px rgba(0, 0, 0, 0.04), inset -2px -2px 6px rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(229, 231, 235, 0.6);
+}
+
+/* ==========================================================================
+   GLASSMORPHISM Utilities
+   ========================================================================== */
+.glass-header {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(229, 231, 235, 0.8);
+}
+
+.glass-floating {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 12px 36px -4px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(255, 255, 255, 0.6) inset;
+  border: 1px solid rgba(229, 231, 235, 0.8);
+}
+
+.glass-pill {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+/* ==========================================================================
+   CHIP UI Utilities (Pills, Filter Tags, Status Badges)
+   ========================================================================== */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+}
+
+.chip-filter {
+  background: #FFFFFF;
+  border: 1px solid #E5E7EB;
+  color: #2A2A2E;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.03);
+}
+
+.chip-filter:hover {
+  background: #F8F9FA;
+  border-color: #D1D5DB;
+  transform: translateY(-1px);
+}
+
+.chip-filter.active {
+  background: #0F0F10;
+  border-color: #0F0F10;
+  color: #FFFFFF;
+  box-shadow: 0 4px 12px rgba(15, 15, 16, 0.15);
+}
+
+.chip-spark {
+  background: #FFFBEB;
+  border: 1px solid #FFE066;
+  color: #B45309;
+}
+
+.chip-assured {
+  background: linear-gradient(135deg, #FFF6CC 0%, #FFE066 100%);
+  color: #0F0F10;
+  font-weight: 800;
+  font-style: italic;
+  box-shadow: 0 1px 4px rgba(255, 199, 0, 0.2);
+}
+
+/* Primary CTA Button (Flipkart Spark Glow) */
+.btn-primary {
+  background: linear-gradient(135deg, #FFD43B 0%, #FFC700 55%, #F59E0B 100%);
+  color: #0F0F10;
+  font-weight: 700;
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  box-shadow: 0 4px 14px rgba(255, 199, 0, 0.32);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-primary:hover {
+  box-shadow: 0 6px 22px rgba(255, 199, 0, 0.45);
+  transform: translateY(-1px);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+/* Buy Now Button (Matching website signature Spark Yellow palette) */
+.btn-buy-now {
+  background: linear-gradient(135deg, #FFD43B 0%, #FFC700 50%, #F59E0B 100%);
+  color: #0F0F10;
+  font-weight: 800;
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  box-shadow: 0 4px 14px rgba(255, 199, 0, 0.32);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-buy-now:hover {
+  box-shadow: 0 6px 20px rgba(255, 199, 0, 0.45);
+  transform: translateY(-1px);
+}
+
+/* Custom Sleek Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #F1F3F6;
+}
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 99px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}

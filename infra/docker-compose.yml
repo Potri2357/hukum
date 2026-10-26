@@ -1,0 +1,112 @@
+version: '3.8'
+
+services:
+  # Load Balancer
+  nginx:
+    image: nginx:alpine
+    container_name: hukum-nginx
+    ports:
+      - "${PORT_WEB:-3000}:80"
+      - "8080:8080" # spk.link shortener
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - api-1
+    profiles: ["lite", "cluster"]
+
+  # API Node 1
+  api-1:
+    build:
+      context: ..
+      dockerfile: apps/api/Dockerfile
+    container_name: hukum-api-1
+    environment:
+      - NODE_ENV=production
+      - PORT_API=4000
+    env_file:
+      - ../.env
+    profiles: ["lite", "cluster"]
+
+  # API Node 2 (Stateless scale node)
+  api-2:
+    build:
+      context: ..
+      dockerfile: apps/api/Dockerfile
+    container_name: hukum-api-2
+    environment:
+      - NODE_ENV=production
+      - PORT_API=4000
+    env_file:
+      - ../.env
+    profiles: ["cluster"]
+
+  # Redis OSS Cache & Token Bucket
+  redis:
+    image: redis:7-alpine
+    container_name: hukum-redis
+    ports:
+      - "6379:6379"
+    command: ["redis-server", "--requirepass", "${REDIS_PASSWORD}", "--maxmemory", "${REDIS_MAXMEMORY:-256mb}", "--maxmemory-policy", "${REDIS_EVICTION_POLICY:-allkeys-lru}"]
+    profiles: ["lite", "cluster"]
+
+  # Mailpit (Simulated local SMTP + Web UI)
+  mailpit:
+    image: axllent/mailpit:latest
+    container_name: hukum-mailpit
+    ports:
+      - "1025:1025"
+      - "${MAILPIT_UI_PORT:-8025}:8025"
+    profiles: ["lite", "cluster"]
+
+  # MinIO (Local S3-compatible Object Storage)
+  minio:
+    image: minio/minio:latest
+    container_name: hukum-minio
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-hukum_minio}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
+    command: server /data --console-address ":9001"
+    profiles: ["lite", "cluster"]
+
+  # Mock Seller Site for Crawling Demos
+  mock-seller-site:
+    build:
+      context: ..
+      dockerfile: services/mock-seller-site/Dockerfile
+    container_name: hukum-mock-seller
+    ports:
+      - "5050:5050"
+    profiles: ["lite", "cluster"]
+
+  # MongoDB Lite Mode (Single instance with simulated sharding)
+  mongo-lite:
+    image: mongo:7-jammy
+    container_name: hukum-mongo-lite
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USER:-hukum_root}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD}
+    profiles: ["lite"]
+
+  # Prometheus & Grafana (Observability)
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: hukum-prometheus
+    ports:
+      - "${PROMETHEUS_PORT:-9090}:9090"
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    profiles: ["cluster"]
+
+  grafana:
+    image: grafana/grafana-oss:latest
+    container_name: hukum-grafana
+    ports:
+      - "${GRAFANA_PORT:-3001}:3000"
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD}
+    profiles: ["cluster"]

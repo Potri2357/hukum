@@ -1,0 +1,10 @@
+{
+  "name": "@hukum/mock-seller-site",
+  "version": "1.0.0",
+  "private": true,
+  "main": "server.mjs",
+  "scripts": {
+    "dev": "node server.mjs",
+    "start": "node server.mjs"
+  }
+}

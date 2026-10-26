@@ -1,0 +1,26 @@
+{
+  "name": "hukum-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Hukum — A premium, high-scale e-commerce marketplace (Flipkart-class) with 7 distributed systems capabilities",
+  "scripts": {
+    "setup:env": "bash scripts/setup-env.sh",
+    "env:check": "node scripts/check-env.mjs",
+    "dev": "pnpm --parallel --filter @hukum/api --filter @hukum/web --filter @hukum/mock-seller-site dev",
+    "dev:web": "pnpm --filter @hukum/web dev",
+    "dev:api": "pnpm --filter @hukum/api dev",
+    "dev:mock": "pnpm --filter @hukum/mock-seller-site dev",
+    "build:packages": "pnpm --filter \"./packages/*\" build",
+    "build": "pnpm build:packages && pnpm --filter @hukum/api build",
+    "test": "pnpm --recursive test",
+    "seed": "pnpm --filter @hukum/api seed"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.7",
+    "typescript": "^5.4.5"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=8.0.0"
+  }
+}
