@@ -49,7 +49,7 @@ export function CategoryOrbit({
   onSelectCategory?: (category: string) => void;
 }) {
   return (
-    <div className="bg-white rounded-2xl border border-line p-4 mb-6 shadow-sm overflow-x-auto scrollbar-none">
+    <div className="bg-white/80 backdrop-blur-xl rounded-2xl border border-white/80 p-4 mb-6 shadow-sm overflow-x-auto scrollbar-none">
       <div className="flex items-center justify-between min-w-[680px] px-2 gap-4">
         {categories.map((cat, idx) => {
           const isSelected =
@@ -68,13 +68,17 @@ export function CategoryOrbit({
               className="flex flex-col items-center gap-2 group flex-1 cursor-pointer"
             >
               <div
-                className={`w-16 h-16 rounded-full p-1 bg-surface-alt border-2 transition-all duration-300 group-hover:scale-110 flex items-center justify-center overflow-hidden shadow-sm ${
-                  isSelected ? 'border-spark-500 ring-4 ring-spark-200' : 'border-line hover:border-spark-400'
+                className={`w-16 h-16 rounded-full p-1 bg-surface-alt/80 border-2 transition-all duration-300 group-hover:scale-110 flex items-center justify-center overflow-hidden shadow-sm ${
+                  isSelected ? 'border-spark-500 ring-4 ring-spark-200' : 'border-white/80 hover:border-spark-400'
                 }`}
               >
                 <img
                   src={cat.image}
                   alt={cat.name}
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).src =
+                      'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=200&auto=format&fit=crop&q=80';
+                  }}
                   className="w-full h-full object-cover rounded-full"
                 />
               </div>

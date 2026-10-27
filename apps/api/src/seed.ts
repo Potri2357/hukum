@@ -1019,7 +1019,7 @@ export function seedInitialData() {
       discountPct: 17,
       description: 'Features a vibrant 7-inch OLED screen with vivid colors and crisp contrast, a wide adjustable stand, a dock with a wired LAN port, and enhanced audio.',
       media: [
-        'https://images.unsplash.com/photo-1578303512597-8be9f1d45e3e?w=800&auto=format&fit=crop&q=80',
+        'https://images.unsplash.com/photo-1592840496694-26d035b52b48?w=800&auto=format&fit=crop&q=80',
       ],
       ratingAvg: 4.8,
       ratingCount: 11200,
@@ -1619,7 +1619,7 @@ export function seedInitialData() {
       "discountPct": 22,
       "description": "Formulated with Ester Core technology for high-performance 4-stroke engines. Delivers extreme shear stability, smooth gear shifting, and superior thermal resistance.",
       "media": [
-            "https://images.unsplash.com/photo-1486006920555-c77dce18193b?w=800&auto=format&fit=crop&q=80"
+            "https://images.unsplash.com/photo-1558980664-3a031cf67ea8?w=800&auto=format&fit=crop&q=80"
       ],
       "ratingAvg": 4.9,
       "ratingCount": 14200,
@@ -1878,7 +1878,7 @@ export function seedInitialData() {
       "discountPct": 5,
       "description": "Pure Niacinamide (Vitamin B3) and Zinc PCA formula clinically proven to fade dark acne spots, regulate sebum production, and strengthen skin barrier.",
       "media": [
-            "https://images.unsplash.com/photo-1608248597359-32204558509e?w=800&auto=format&fit=crop&q=80"
+            "https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=800&auto=format&fit=crop&q=80"
       ],
       "ratingAvg": 4.8,
       "ratingCount": 22100,
@@ -2085,7 +2085,7 @@ export function seedInitialData() {
       "discountPct": 25,
       "description": "Creamy, non-foaming gentle cleanser enriched with Niacinamide, Panthenol, and hydrating Glycerin. Clinically proven to hydrate while removing dirt, makeup and impurities without stripping.",
       "media": [
-            "https://images.unsplash.com/photo-1556228722-d0b71946f827?w=800&auto=format&fit=crop&q=80"
+            "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=800&auto=format&fit=crop&q=80"
       ],
       "ratingAvg": 4.7,
       "ratingCount": 38200,
@@ -2213,7 +2213,7 @@ export function seedInitialData() {
       "discountPct": 35,
       "description": "The modern classic slim fit jeans cut close without feeling restricted. Crafted from premium Japanese selvedge woven denim with +Levi's Flex advanced stretch for maximum comfort.",
       "media": [
-            "https://images.unsplash.com/photo-1542272604-780c96856592?w=800&auto=format&fit=crop&q=80"
+            "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=800&auto=format&fit=crop&q=80"
       ],
       "ratingAvg": 4.7,
       "ratingCount": 19400,
@@ -2265,7 +2265,7 @@ export function seedInitialData() {
       "discountPct": 42,
       "description": "Flared tiered anarkali silhouette highlighted with golden foil geometric print, gota patti lace border, round neckline with keyhole button, and sheer dupatta.",
       "media": [
-            "https://images.unsplash.com/photo-1583391733975-29622955f159?w=800&auto=format&fit=crop&q=80"
+            "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=800&auto=format&fit=crop&q=80"
       ],
       "ratingAvg": 4.7,
       "ratingCount": 8900,
@@ -2447,7 +2447,7 @@ export function seedInitialData() {
       "discountPct": 30,
       "description": "Classic American cool staple polo crafted from breathable organic cotton honeycomb pique. Ribbed knit collar and cuffs with signature tri-color embroidered flag chest crest.",
       "media": [
-            "https://images.unsplash.com/photo-1625910513413-5b8d21ecf7c3?w=800&auto=format&fit=crop&q=80"
+            "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=800&auto=format&fit=crop&q=80"
       ],
       "ratingAvg": 4.7,
       "ratingCount": 12900,
@@ -2577,7 +2577,7 @@ export function seedInitialData() {
       "discountPct": 6,
       "description": "Next-gen virtual reality for PS5. 4K HDR OLED displays with 110-degree field of view, intelligent eye tracking, headset feedback, 3D audio, and PS VR2 Sense controllers with haptic feedback.",
       "media": [
-            "https://images.unsplash.com/photo-1622979135225-d2ba269bc1df?w=800&auto=format&fit=crop&q=80"
+            "https://images.unsplash.com/photo-1593508512255-86ab42a8e620?w=800&auto=format&fit=crop&q=80"
       ],
       "ratingAvg": 4.8,
       "ratingCount": 3100,
@@ -2655,7 +2655,7 @@ export function seedInitialData() {
       "discountPct": 24,
       "description": "Ultra-fast charging hub for power users. Can fast charge a 16-inch MacBook Pro to 50% in 28 minutes with 140W single-port PD 3.1 output. Smart digital display shows real-time wattage.",
       "media": [
-            "https://images.unsplash.com/photo-1609592424109-dd9892f1b177?w=800&auto=format&fit=crop&q=80"
+            "https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=800&auto=format&fit=crop&q=80"
       ],
       "ratingAvg": 4.9,
       "ratingCount": 8410,
@@ -2946,7 +2946,7 @@ export function seedInitialData() {
       "discountPct": 28,
       "description": "100% synthetic Ester technology motorcycle lubricant engineered for high performance modern sport and street bikes. Provides optimal gear protection, wet-clutch anti-slip response, and reduced engine friction.",
       "media": [
-        "https://images.unsplash.com/photo-1486006920555-c77dce18193b?w=800&auto=format&fit=crop&q=80"
+        "https://images.unsplash.com/photo-1558980664-3a031cf67ea8?w=800&auto=format&fit=crop&q=80"
       ],
       "ratingAvg": 4.9,
       "ratingCount": 14200,
@@ -3048,7 +3048,7 @@ export function seedInitialData() {
       "discountPct": 27,
       "description": "Modular flip-up motorcycle helmet with one-button chin guard release, secondary tinted drop-down sun visor, regulated density EPS concussion padding, and ISI safety hallmark.",
       "media": [
-        "https://images.unsplash.com/photo-1558981420-bf7087a16339?w=800&auto=format&fit=crop&q=80"
+        "https://images.unsplash.com/photo-1558981403-c5f9899a28bc?w=800&auto=format&fit=crop&q=80"
       ],
       "ratingAvg": 4.5,
       "ratingCount": 7850,
@@ -3254,7 +3254,7 @@ export function seedInitialData() {
       "discountPct": 5,
       "description": "Nourishing daily face serum formulated with pure EU-grade Vitamin B3 and Zinc PCA. Clinically proven to reduce acne marks, control excess sebum, and strengthen barrier within 2 weeks.",
       "media": [
-        "https://images.unsplash.com/photo-1608248597359-5433a1e94119?w=800&auto=format&fit=crop&q=80"
+        "https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=800&auto=format&fit=crop&q=80"
       ],
       "ratingAvg": 4.8,
       "ratingCount": 42000,
@@ -3459,7 +3459,7 @@ export function seedInitialData() {
       "discountPct": 24,
       "description": "Soap-free, non-drying foaming cleanser with organic green tea extracts and gentle cellulose micro-beads. Washes away excess oil and grime without compromising moisture barrier.",
       "media": [
-        "https://images.unsplash.com/photo-1556228722-d0b503554e2f?w=800&auto=format&fit=crop&q=80"
+        "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=800&auto=format&fit=crop&q=80"
       ],
       "ratingAvg": 4.6,
       "ratingCount": 27500,
@@ -3738,7 +3738,7 @@ export function seedInitialData() {
       "discountPct": 38,
       "description": "A modern slim with room to move. Built with Levis Flex advanced stretch technology for optimal mobility, classic 5-pocket styling, and signature back pocket red tab.",
       "media": [
-        "https://images.unsplash.com/photo-1542272604-780c96856592?w=800&auto=format&fit=crop&q=80"
+        "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=800&auto=format&fit=crop&q=80"
       ],
       "ratingAvg": 4.7,
       "ratingCount": 24100,

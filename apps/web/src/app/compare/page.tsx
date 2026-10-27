@@ -56,10 +56,10 @@ export default function ComparePage() {
           </Link>
         </div>
       ) : (
-        <div className="overflow-x-auto rounded-3xl border border-line bg-white shadow-sm">
+        <div className="overflow-x-auto rounded-3xl border border-white/80 bg-white/80 backdrop-blur-xl shadow-md">
           <table className="w-full text-left text-xs border-collapse">
             <thead>
-              <tr className="border-b border-line bg-surface-alt">
+              <tr className="border-b border-line bg-surface-alt/70">
                 <th className="p-4 w-48 font-bold text-ink-500 uppercase tracking-wider">Features</th>
                 {products.map((p) => (
                   <th key={p._id} className="p-4 min-w-[220px]">
@@ -78,7 +78,11 @@ export default function ComparePage() {
                     <img
                       src={p.media?.[0] || p.image}
                       alt={p.title}
-                      className="w-28 h-28 object-contain rounded-xl mx-auto mb-2"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src =
+                          'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&auto=format&fit=crop&q=80';
+                      }}
+                      className="w-28 h-28 object-contain rounded-xl mx-auto mb-2 bg-white/70 p-1 border border-white/80"
                     />
                     <h3 className="font-bold text-sm text-ink-900 line-clamp-2 mb-2">{p.title}</h3>
                     <p className="text-base font-black text-ink-900 tabular-nums">

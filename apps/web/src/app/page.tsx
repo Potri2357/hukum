@@ -957,7 +957,7 @@ export default function HomePage({
       )}
 
       {/* Section: The Hukum Quality Promise (Consumer Trust Pillars) */}
-      <section className="bg-white rounded-2xl p-6 sm:p-8 border border-line neuromorphic-card">
+      <section className="bg-white/80 backdrop-blur-2xl rounded-2xl p-6 sm:p-8 border border-white/80 neuromorphic-card shadow-sm">
         <div className="text-center max-w-lg mx-auto mb-6">
           <div className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-spark-100 text-amber-800 text-[11px] font-black uppercase tracking-wider mb-2 border border-spark-200">
             <Award className="w-3.5 h-3.5 text-amber-600" />
@@ -972,7 +972,7 @@ export default function HomePage({
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <div className="p-4 rounded-xl bg-surface-alt border border-line flex flex-col items-center text-center">
+          <div className="p-4 rounded-xl bg-white/60 backdrop-blur-md border border-white/80 flex flex-col items-center text-center shadow-2xs">
             <div className="w-10 h-10 rounded-xl bg-spark-500/20 text-amber-700 flex items-center justify-center mb-2.5">
               <ShieldCheck className="w-5 h-5" />
             </div>
@@ -982,7 +982,7 @@ export default function HomePage({
             </p>
           </div>
 
-          <div className="p-4 rounded-xl bg-surface-alt border border-line flex flex-col items-center text-center">
+          <div className="p-4 rounded-xl bg-white/60 backdrop-blur-md border border-white/80 flex flex-col items-center text-center shadow-2xs">
             <div className="w-10 h-10 rounded-xl bg-spark-500/20 text-amber-700 flex items-center justify-center mb-2.5">
               <Truck className="w-5 h-5" />
             </div>
@@ -992,7 +992,7 @@ export default function HomePage({
             </p>
           </div>
 
-          <div className="p-4 rounded-xl bg-surface-alt border border-line flex flex-col items-center text-center">
+          <div className="p-4 rounded-xl bg-white/60 backdrop-blur-md border border-white/80 flex flex-col items-center text-center shadow-2xs">
             <div className="w-10 h-10 rounded-xl bg-spark-500/20 text-amber-700 flex items-center justify-center mb-2.5">
               <RotateCcw className="w-5 h-5" />
             </div>
@@ -1002,7 +1002,7 @@ export default function HomePage({
             </p>
           </div>
 
-          <div className="p-4 rounded-xl bg-surface-alt border border-line flex flex-col items-center text-center">
+          <div className="p-4 rounded-xl bg-white/60 backdrop-blur-md border border-white/80 flex flex-col items-center text-center shadow-2xs">
             <div className="w-10 h-10 rounded-xl bg-spark-500/20 text-amber-700 flex items-center justify-center mb-2.5">
               <Headphones className="w-5 h-5" />
             </div>

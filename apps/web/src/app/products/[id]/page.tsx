@@ -22,6 +22,20 @@ import {
   ChevronRight,
 } from 'lucide-react';
 
+const CATEGORY_FALLBACKS: Record<string, string> = {
+  'Mobiles & Tablets': 'https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=800&auto=format&fit=crop&q=80',
+  'Laptops & Computers': 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=800&auto=format&fit=crop&q=80',
+  'Audio & Soundbars': 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&auto=format&fit=crop&q=80',
+  'Smart Watches': 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&auto=format&fit=crop&q=80',
+  'Cameras & Drones': 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=800&auto=format&fit=crop&q=80',
+  'Gaming & Desk': 'https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=800&auto=format&fit=crop&q=80',
+  'Bikes & Automotive': 'https://images.unsplash.com/photo-1558981403-c5f9899a28bc?w=800&auto=format&fit=crop&q=80',
+  'Beauty & Makeup': 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=800&auto=format&fit=crop&q=80',
+  'Textiles & Ethnic Wear': 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=800&auto=format&fit=crop&q=80',
+  'Sneakers & Fashion': 'https://images.unsplash.com/photo-1552346154-21d32810aba3?w=800&auto=format&fit=crop&q=80',
+};
+const DEFAULT_FALLBACK_IMAGE = 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&auto=format&fit=crop&q=80';
+
 export default function ProductDetailPage({ params }: { params: { id: string } }) {
   const router = useRouter();
   const [product, setProduct] = useState<any>(null);
@@ -53,7 +67,8 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
           setSelectedImage(
             data.product?.media?.[0] ||
               data.product?.image ||
-              'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&q=80'
+              CATEGORY_FALLBACKS[data.product?.category] ||
+              DEFAULT_FALLBACK_IMAGE
           );
         }
       } catch (err) {
@@ -184,11 +199,11 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
         <div className="lg:col-span-5">
           <div className="sticky top-28 space-y-4">
             {/* Main 1:1 Aspect Ratio Image Frame */}
-            <div className="aspect-square rounded-2xl bg-white border border-line p-6 flex items-center justify-center relative neuromorphic-card overflow-hidden">
+            <div className="aspect-square rounded-2xl bg-white/80 backdrop-blur-xl border border-white/80 p-6 flex items-center justify-center relative neuromorphic-card overflow-hidden shadow-md">
               {/* Wishlist Heart */}
               <button
                 onClick={() => setIsWishlisted(!isWishlisted)}
-                className="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center hover:bg-white text-ink-700 transition-all shadow-sm border border-line"
+                className="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-white/90 backdrop-blur-md flex items-center justify-center hover:bg-white text-ink-700 transition-all shadow-sm border border-white/80"
                 title="Add to Wishlist"
               >
                 <Heart
@@ -200,7 +215,7 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
 
               {/* Discount Pill */}
               {discount > 0 && (
-                <span className="absolute top-4 left-4 bg-emerald-600 text-white text-xs font-black px-2.5 py-1 rounded-lg shadow-sm">
+                <span className="absolute top-4 left-4 bg-emerald-600/90 backdrop-blur-md text-white text-xs font-black px-2.5 py-1 rounded-lg shadow-sm border border-emerald-400/40">
                   {discount}% OFF
                 </span>
               )}
@@ -208,6 +223,10 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
               <img
                 src={selectedImage}
                 alt={product.title}
+                onError={(e) => {
+                  (e.target as HTMLImageElement).src =
+                    CATEGORY_FALLBACKS[product?.category] || DEFAULT_FALLBACK_IMAGE;
+                }}
                 className="max-h-full max-w-full object-contain hover:scale-105 transition-transform duration-300"
               />
             </div>
@@ -219,13 +238,21 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
                   <button
                     key={i}
                     onClick={() => setSelectedImage(img)}
-                    className={`w-16 h-16 rounded-xl border-2 overflow-hidden flex-shrink-0 p-1 bg-white transition-all ${
+                    className={`w-16 h-16 rounded-xl border-2 overflow-hidden flex-shrink-0 p-1 bg-white/85 backdrop-blur-md transition-all ${
                       selectedImage === img
                         ? 'border-spark-500 ring-2 ring-spark-200'
-                        : 'border-line opacity-75 hover:opacity-100'
+                        : 'border-white/80 opacity-75 hover:opacity-100 shadow-2xs'
                     }`}
                   >
-                    <img src={img} alt="" className="w-full h-full object-contain" />
+                    <img
+                      src={img}
+                      alt=""
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src =
+                          CATEGORY_FALLBACKS[product?.category] || DEFAULT_FALLBACK_IMAGE;
+                      }}
+                      className="w-full h-full object-contain"
+                    />
                   </button>
                 ))}
               </div>
@@ -258,7 +285,7 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
             </div>
 
             {/* Clean Consumer Share Chip */}
-            <div className="p-3.5 rounded-xl bg-white border border-line flex items-center justify-between gap-3 shadow-sm">
+            <div className="p-3.5 rounded-xl bg-white/80 backdrop-blur-xl border border-white/80 flex items-center justify-between gap-3 shadow-sm">
               <div className="flex items-center gap-2">
                 <Share2 className="w-4 h-4 text-amber-600" />
                 <span className="text-xs font-bold text-ink-900">Share with family & friends</span>
@@ -322,7 +349,7 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
           </div>
 
           {/* Pricing Box (Flipkart Style) */}
-          <div className="p-6 rounded-2xl bg-white border border-line neuromorphic-card">
+          <div className="p-6 rounded-2xl bg-white/80 backdrop-blur-xl border border-white/80 neuromorphic-card shadow-sm">
             <span className="text-xs font-black text-emerald-700 uppercase tracking-wider block mb-1">
               Special Price Offer
             </span>
@@ -343,7 +370,7 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
           </div>
 
           {/* Flipkart Bank Offers Strip (Chip UI) */}
-          <div className="rounded-2xl border border-line p-5 bg-white space-y-3">
+          <div className="rounded-2xl border border-white/80 p-5 bg-white/80 backdrop-blur-xl space-y-3 shadow-sm">
             <h3 className="text-xs font-black text-ink-900 uppercase tracking-wider flex items-center gap-1.5">
               <Tag className="w-4 h-4 text-emerald-600" /> Available Bank Offers
             </h3>
@@ -368,7 +395,7 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
           </div>
 
           {/* Variant Selector: Storage & Color Chips (Chip UI) */}
-          <div className="rounded-2xl border border-line p-5 bg-white space-y-4">
+          <div className="rounded-2xl border border-white/80 p-5 bg-white/80 backdrop-blur-xl space-y-4 shadow-sm">
             <div>
               <span className="text-xs font-bold text-ink-700 block mb-2">Select Storage:</span>
               <div className="flex flex-wrap items-center gap-2">
@@ -409,7 +436,7 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
           </div>
 
           {/* Pincode & Delivery Checker */}
-          <div className="rounded-2xl border border-line p-5 bg-white space-y-3">
+          <div className="rounded-2xl border border-white/80 p-5 bg-white/80 backdrop-blur-xl space-y-3 shadow-sm">
             <div className="flex items-center justify-between">
               <span className="text-xs font-bold text-ink-900 flex items-center gap-1.5">
                 <MapPin className="w-4 h-4 text-amber-600" /> Delivery Options
@@ -424,7 +451,7 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
                 value={pincodeInput}
                 onChange={(e) => setPincodeInput(e.target.value)}
                 placeholder="Enter 6-digit Pincode"
-                className="px-3.5 py-2 text-xs rounded-xl border border-line focus:border-spark-500 focus:outline-none font-mono font-bold max-w-xs"
+                className="px-3.5 py-2 text-xs rounded-xl border border-line focus:border-spark-500 focus:outline-none font-mono font-bold max-w-xs bg-white/90"
               />
               <button
                 type="submit"
@@ -434,7 +461,7 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
               </button>
             </form>
 
-            <div className="pt-2 border-t border-line text-xs space-y-1.5 text-ink-700">
+            <div className="pt-2 border-t border-line/60 text-xs space-y-1.5 text-ink-700">
               <p className="font-bold text-emerald-700 flex items-center gap-1.5">
                 <Truck className="w-4 h-4" /> {pincodeStatus}
               </p>
@@ -444,12 +471,12 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
           </div>
 
           {/* Flipkart Multi-Seller Marketplace Offers ("Buy from other sellers") */}
-          <div className="rounded-2xl border border-line p-5 bg-white">
+          <div className="rounded-2xl border border-white/80 p-5 bg-white/80 backdrop-blur-xl shadow-sm">
             <h3 className="text-sm font-bold text-ink-900 mb-3 flex items-center gap-2">
               <Store className="w-4 h-4 text-amber-600" />
               Buy from other sellers ({product.sellerOffers?.length || 2} offers available)
             </h3>
-            <div className="divide-y divide-line">
+            <div className="divide-y divide-line/60">
               {(product.sellerOffers || [
                 { sellerName: 'OmniTech Retail Corp', rating: 4.8, deliveryDays: 2, price: currentPrice },
                 { sellerName: 'Apex Digital Hub', rating: 4.6, deliveryDays: 3, price: Math.round(currentPrice * 1.02) },
@@ -468,7 +495,7 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
                     </span>
                     <button
                       onClick={handleAddToCart}
-                      className="px-3 py-1 rounded-lg border border-line hover:border-spark-500 text-xs font-bold"
+                      className="px-3 py-1 rounded-lg border border-line hover:border-spark-500 text-xs font-bold bg-white/90"
                     >
                       Select
                     </button>
@@ -479,8 +506,8 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
           </div>
 
           {/* Product Specifications Table */}
-          <div className="rounded-2xl border border-line p-5 bg-white">
-            <h3 className="text-sm font-bold text-ink-900 mb-4 pb-2 border-b border-line">
+          <div className="rounded-2xl border border-white/80 p-5 bg-white/80 backdrop-blur-xl shadow-sm">
+            <h3 className="text-sm font-bold text-ink-900 mb-4 pb-2 border-b border-line/60">
               Product Specifications & Details
             </h3>
             <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 text-xs">
@@ -508,17 +535,17 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
 
           {/* Consumer Trust Badges */}
           <div className="grid grid-cols-3 gap-4 pt-2 text-center text-xs">
-            <div className="p-3.5 rounded-xl bg-white border border-line shadow-sm">
+            <div className="p-3.5 rounded-xl bg-white/80 backdrop-blur-xl border border-white/80 shadow-sm">
               <Shield className="w-5 h-5 mx-auto text-amber-600 mb-1" />
               <p className="font-bold text-ink-900">1 Year Warranty</p>
               <p className="text-[10px] text-ink-500">Brand Authorized</p>
             </div>
-            <div className="p-3.5 rounded-xl bg-white border border-line shadow-sm">
+            <div className="p-3.5 rounded-xl bg-white/80 backdrop-blur-xl border border-white/80 shadow-sm">
               <RotateCcw className="w-5 h-5 mx-auto text-amber-600 mb-1" />
               <p className="font-bold text-ink-900">7-Day Replacement</p>
               <p className="text-[10px] text-ink-500">Doorstep Return</p>
             </div>
-            <div className="p-3.5 rounded-xl bg-white border border-line shadow-sm">
+            <div className="p-3.5 rounded-xl bg-white/80 backdrop-blur-xl border border-white/80 shadow-sm">
               <Award className="w-5 h-5 mx-auto text-amber-600 mb-1" />
               <p className="font-bold text-ink-900">Hukum Assured</p>
               <p className="text-[10px] text-ink-500">Quality Verified</p>

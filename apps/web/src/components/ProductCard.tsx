@@ -24,6 +24,20 @@ export interface Product {
   inStock?: boolean;
 }
 
+const CATEGORY_FALLBACKS: Record<string, string> = {
+  'Mobiles & Tablets': 'https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=600&auto=format&fit=crop&q=80',
+  'Laptops & Computers': 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600&auto=format&fit=crop&q=80',
+  'Audio & Soundbars': 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&auto=format&fit=crop&q=80',
+  'Smart Watches': 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&auto=format&fit=crop&q=80',
+  'Cameras & Drones': 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=600&auto=format&fit=crop&q=80',
+  'Gaming & Desk': 'https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=600&auto=format&fit=crop&q=80',
+  'Bikes & Automotive': 'https://images.unsplash.com/photo-1558981403-c5f9899a28bc?w=600&auto=format&fit=crop&q=80',
+  'Beauty & Makeup': 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=600&auto=format&fit=crop&q=80',
+  'Textiles & Ethnic Wear': 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=600&auto=format&fit=crop&q=80',
+  'Sneakers & Fashion': 'https://images.unsplash.com/photo-1552346154-21d32810aba3?w=600&auto=format&fit=crop&q=80',
+};
+const DEFAULT_FALLBACK_IMAGE = 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&auto=format&fit=crop&q=80';
+
 export function ProductCard({ product }: { product: Product }) {
   const router = useRouter();
   const [isAdded, setIsAdded] = useState(false);
@@ -34,8 +48,24 @@ export function ProductCard({ product }: { product: Product }) {
   const originalPrice = product.originalPrice || Math.round(currentPrice * 1.25);
   const discount =
     product.discountPct || Math.round(((originalPrice - currentPrice) / originalPrice) * 100);
-  const displayImage =
-    product.media?.[0] || product.image || 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&auto=format&fit=crop&q=80';
+
+  const initialImage =
+    product.media?.[0] || product.image || CATEGORY_FALLBACKS[product.category] || DEFAULT_FALLBACK_IMAGE;
+  const [imgSrc, setImgSrc] = useState(initialImage);
+
+  React.useEffect(() => {
+    const current =
+      product.media?.[0] || product.image || CATEGORY_FALLBACKS[product.category] || DEFAULT_FALLBACK_IMAGE;
+    setImgSrc(current);
+  }, [product]);
+
+  const handleImageError = () => {
+    const fallback = CATEGORY_FALLBACKS[product.category] || DEFAULT_FALLBACK_IMAGE;
+    if (imgSrc !== fallback) {
+      setImgSrc(fallback);
+    }
+  };
+
   const targetSlug = product.slug || product._id;
 
   const handleQuickAdd = async (e: React.MouseEvent) => {
@@ -80,9 +110,9 @@ export function ProductCard({ product }: { product: Product }) {
   };
 
   return (
-    <div className="group relative neuromorphic-card p-3 hover:border-spark-400 flex flex-col justify-between bg-white transition-all duration-200">
+    <div className="group relative neuromorphic-card p-3 hover:border-spark-400 flex flex-col justify-between bg-white/80 backdrop-blur-xl border border-white/80 shadow-xs hover:shadow-xl transition-all duration-300">
       {/* 1:1 Aspect Ratio Image Box */}
-      <div className="relative aspect-square w-full rounded-xl overflow-hidden bg-[#FAFBFD] mb-2.5 p-2 flex items-center justify-center border border-line/60">
+      <div className="relative aspect-square w-full rounded-xl overflow-hidden bg-white/60 backdrop-blur-sm mb-2.5 p-2 flex items-center justify-center border border-white/80 shadow-inner group-hover:bg-white/80 transition-colors">
         {/* Wishlist Heart */}
         <button
           onClick={(e) => {
@@ -90,7 +120,7 @@ export function ProductCard({ product }: { product: Product }) {
             e.stopPropagation();
             setIsWishlisted(!isWishlisted);
           }}
-          className="absolute top-2 right-2 z-10 w-7 h-7 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center hover:bg-white text-ink-700 transition-all shadow-2xs border border-line/60"
+          className="absolute top-2 right-2 z-10 w-7 h-7 rounded-full bg-white/90 backdrop-blur-md flex items-center justify-center hover:bg-white text-ink-700 transition-all shadow-2xs border border-line/60"
           title="Add to Wishlist"
         >
           <Heart
@@ -109,10 +139,11 @@ export function ProductCard({ product }: { product: Product }) {
 
         <Link href={`/products/${targetSlug}`} className="w-full h-full flex items-center justify-center">
           <img
-            src={displayImage}
+            src={imgSrc}
             alt={product.title}
+            onError={handleImageError}
             loading="lazy"
-            className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
+            className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300 drop-shadow-sm"
           />
         </Link>
       </div>

@@ -371,7 +371,7 @@ export function Header() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 bg-white shadow-xs border-b border-line">
+    <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-2xl border-b border-white/60 shadow-xs">
       {/* Main Flipkart-Style Navbar (Clean & Modern) */}
       <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
         {/* Brand Logo: Pure Hukum wordmark, no sparkles, no explore plus */}
@@ -588,7 +588,7 @@ export function Header() {
       </div>
 
       {/* Flipkart-Style Top Category Strip (Large Prominent Icons ABOVE Text) */}
-      <nav className="bg-white border-t border-line px-3 py-3.5 overflow-x-auto scrollbar-none shadow-xs">
+      <nav className="bg-white/75 backdrop-blur-xl border-t border-line/60 px-3 py-3.5 overflow-x-auto scrollbar-none shadow-2xs">
         <div className="max-w-7xl mx-auto flex items-center justify-between min-w-[980px] px-2 gap-2 sm:gap-3 text-ink-700">
           {categoryNavItems.map((item, idx) => {
             const Icon = item.icon;
@@ -598,7 +598,7 @@ export function Header() {
                 href={item.href}
                 className="flex flex-col items-center justify-center gap-2 py-1 px-2 sm:px-3 rounded-2xl hover:bg-spark-50/70 transition-all group cursor-pointer flex-1 text-center"
               >
-                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br from-surface-alt via-white to-spark-50/90 group-hover:from-spark-100 group-hover:to-amber-100 border border-line/90 group-hover:border-spark-400 flex items-center justify-center transition-all duration-300 group-hover:scale-105 shadow-2xs group-hover:shadow-md">
+                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br from-white/95 via-white/85 to-spark-50/80 group-hover:from-spark-100 group-hover:to-amber-100 border border-white/90 group-hover:border-spark-400 flex items-center justify-center transition-all duration-300 group-hover:scale-105 shadow-2xs group-hover:shadow-md backdrop-blur-md">
                   <Icon className="w-7 h-7 sm:w-8 sm:h-8 text-amber-700 group-hover:text-amber-900 transition-colors stroke-[2.2]" />
                 </div>
                 <span className="text-xs sm:text-[13px] font-black text-ink-800 group-hover:text-amber-700 tracking-tight whitespace-nowrap">

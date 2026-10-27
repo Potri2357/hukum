@@ -134,7 +134,7 @@ export default function OrderDetailPage({ params }: { params: { id: string } }) 
       </div>
 
       {/* Real-Time Stepper Progress Bar */}
-      <div className="bg-white rounded-3xl border border-line p-6 md:p-8 shadow-sm">
+      <div className="bg-white/80 backdrop-blur-xl rounded-3xl border border-white/80 p-6 md:p-8 shadow-md">
         <h3 className="font-bold text-sm text-ink-900 mb-8 flex items-center justify-between">
           <span>Delivery Timeline</span>
           <span className="text-xs text-ink-500 font-normal">
@@ -202,8 +202,8 @@ export default function OrderDetailPage({ params }: { params: { id: string } }) 
       {/* Items & Shipping Address */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Ordered Items */}
-        <div className="bg-white rounded-2xl border border-line p-6">
-          <h3 className="font-bold text-sm text-ink-900 mb-4 pb-3 border-b border-line">
+        <div className="bg-white/80 backdrop-blur-xl rounded-2xl border border-white/80 p-6 shadow-sm">
+          <h3 className="font-bold text-sm text-ink-900 mb-4 pb-3 border-b border-line/60">
             Items in this Shipment
           </h3>
           <div className="space-y-4">
@@ -212,7 +212,11 @@ export default function OrderDetailPage({ params }: { params: { id: string } }) 
                 <img
                   src={it.image}
                   alt={it.title}
-                  className="w-14 h-14 object-cover rounded-xl border border-line flex-shrink-0"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).src =
+                      'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&auto=format&fit=crop&q=80';
+                  }}
+                  className="w-14 h-14 object-contain rounded-xl border border-white/80 bg-white/70 p-1 flex-shrink-0"
                 />
                 <div className="flex-1 min-w-0 text-xs">
                   <p className="font-bold text-ink-900 truncate">{it.title}</p>

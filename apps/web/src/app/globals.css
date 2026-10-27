@@ -29,7 +29,12 @@
 body {
   font-family: 'Plus Jakarta Sans', 'DM Sans', system-ui, -apple-system, sans-serif;
   color: var(--ink-900);
-  background-color: #F1F3F6; /* Flipkart classic neutral page backdrop */
+  background: 
+    radial-gradient(at 0% 0%, rgba(255, 199, 0, 0.08) 0px, transparent 50%),
+    radial-gradient(at 100% 30%, rgba(40, 116, 240, 0.07) 0px, transparent 50%),
+    radial-gradient(at 40% 90%, rgba(245, 158, 11, 0.06) 0px, transparent 50%),
+    #F3F5F8;
+  background-attachment: fixed;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -39,40 +44,87 @@ body {
 }
 
 /* ==========================================================================
-   NEUROMORPHISM (Soft UI) Utilities
+   NEUROMORPHISM & GLASSMORPHISM (Hybrid Soft-Glass UI)
    ========================================================================== */
 .neuromorphic-card {
-  background: #FFFFFF;
-  border-radius: 16px;
-  box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.04), -4px -4px 12px rgba(255, 255, 255, 0.9);
-  border: 1px solid rgba(229, 231, 235, 0.8);
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(20px) saturate(190%);
+  -webkit-backdrop-filter: blur(20px) saturate(190%);
+  border-radius: 18px;
+  box-shadow: 
+    0 10px 30px 0 rgba(31, 38, 135, 0.05),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.95),
+    0 0 0 1px rgba(229, 231, 235, 0.7);
+  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .neuromorphic-card:hover {
-  box-shadow: 6px 8px 20px rgba(0, 0, 0, 0.07), -6px -6px 16px rgba(255, 255, 255, 1);
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 
+    0 16px 40px -6px rgba(0, 0, 0, 0.08),
+    inset 0 1px 2px 0 rgba(255, 255, 255, 1),
+    0 0 0 1px rgba(255, 199, 0, 0.4);
   transform: translateY(-2px);
 }
 
+.glass-card {
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(24px) saturate(200%);
+  -webkit-backdrop-filter: blur(24px) saturate(200%);
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 
+    0 12px 36px -4px rgba(0, 0, 0, 0.06),
+    inset 0 1px 2px 0 rgba(255, 255, 255, 0.9);
+  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card:hover {
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 
+    0 20px 48px -8px rgba(0, 0, 0, 0.1),
+    inset 0 1px 2px 0 rgba(255, 255, 255, 1);
+  transform: translateY(-3px);
+}
+
+.glass-panel {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(24px) saturate(190%);
+  -webkit-backdrop-filter: blur(24px) saturate(190%);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 
+    0 14px 40px -4px rgba(0, 0, 0, 0.06),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.9);
+}
+
 .neuromorphic-button {
-  background: #FFFFFF;
-  box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.05), -3px -3px 7px rgba(255, 255, 255, 0.9);
-  border: 1px solid rgba(229, 231, 235, 0.7);
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 
+    0 4px 12px rgba(0, 0, 0, 0.05),
+    inset 0 1px 1px rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(229, 231, 235, 0.8);
   transition: all 0.2s ease;
 }
 
 .neuromorphic-button:hover {
-  box-shadow: 4px 5px 12px rgba(0, 0, 0, 0.08), -4px -4px 10px rgba(255, 255, 255, 1);
+  background: #FFFFFF;
+  box-shadow: 
+    0 6px 18px rgba(0, 0, 0, 0.08),
+    inset 0 1px 2px rgba(255, 255, 255, 1);
   transform: translateY(-1px);
 }
 
 .neuromorphic-button:active {
-  box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.06), inset -2px -2px 5px rgba(255, 255, 255, 0.8);
+  box-shadow: inset 2px 2px 6px rgba(0, 0, 0, 0.08);
   transform: translateY(0);
 }
 
 .neuromorphic-inset {
-  background: #F8F9FA;
+  background: rgba(248, 249, 250, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   box-shadow: inset 2px 2px 6px rgba(0, 0, 0, 0.04), inset -2px -2px 6px rgba(255, 255, 255, 0.8);
   border: 1px solid rgba(229, 231, 235, 0.6);
 }
@@ -81,25 +133,28 @@ body {
    GLASSMORPHISM Utilities
    ========================================================================== */
 .glass-header {
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(229, 231, 235, 0.8);
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(24px) saturate(200%);
+  -webkit-backdrop-filter: blur(24px) saturate(200%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.65);
 }
 
 .glass-floating {
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  box-shadow: 0 12px 36px -4px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(255, 255, 255, 0.6) inset;
-  border: 1px solid rgba(229, 231, 235, 0.8);
+  background: rgba(255, 255, 255, 0.84);
+  backdrop-filter: blur(24px) saturate(200%);
+  -webkit-backdrop-filter: blur(24px) saturate(200%);
+  box-shadow: 
+    0 16px 40px -4px rgba(0, 0, 0, 0.09),
+    0 0 0 1px rgba(255, 255, 255, 0.8) inset;
+  border: 1px solid rgba(229, 231, 235, 0.75);
 }
 
 .glass-pill {
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(14px) saturate(180%);
+  -webkit-backdrop-filter: blur(14px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
 }
 
 /* ==========================================================================

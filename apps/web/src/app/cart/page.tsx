@@ -168,10 +168,18 @@ export default function CartPage() {
             {items.map((item: any) => (
               <div
                 key={item.productId}
-                className="bg-white rounded-2xl border border-line p-4 sm:p-5 flex gap-4 sm:gap-6 items-center justify-between"
+                className="bg-white/80 backdrop-blur-xl rounded-2xl border border-white/80 p-4 sm:p-5 flex gap-4 sm:gap-6 items-center justify-between shadow-sm"
               >
-                <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-xl overflow-hidden bg-[#FAFBFD] border border-line flex-shrink-0 p-2 flex items-center justify-center">
-                  <img src={item.image} alt={item.title} className="max-h-full max-w-full object-contain" />
+                <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-xl overflow-hidden bg-white/60 backdrop-blur-md border border-white/80 flex-shrink-0 p-2 flex items-center justify-center shadow-inner">
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).src =
+                        'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&auto=format&fit=crop&q=80';
+                    }}
+                    className="max-h-full max-w-full object-contain"
+                  />
                 </div>
 
                 <div className="flex-1 min-w-0">
@@ -226,7 +234,7 @@ export default function CartPage() {
           {/* Order Summary & Coupon (4 cols) */}
           <div className="lg:col-span-4 space-y-6">
             {/* Coupon Code Input */}
-            <div className="bg-white rounded-2xl border border-line p-5">
+            <div className="bg-white/80 backdrop-blur-xl rounded-2xl border border-white/80 p-5 shadow-sm">
               <h3 className="text-xs font-bold uppercase tracking-wider text-ink-700 mb-3 flex items-center gap-1.5">
                 <Tag className="w-3.5 h-3.5 text-spark-500" /> Apply Coupon
               </h3>
@@ -236,7 +244,7 @@ export default function CartPage() {
                   value={couponInput}
                   onChange={(e) => setCouponInput(e.target.value)}
                   placeholder="e.g. HUKUM500 or SPARK10"
-                  className="flex-1 px-3 py-2 rounded-xl border border-line text-xs uppercase font-bold tracking-wider focus:outline-none focus:border-spark-500"
+                  className="flex-1 px-3 py-2 rounded-xl border border-line text-xs uppercase font-bold tracking-wider focus:outline-none focus:border-spark-500 bg-white/90"
                 />
                 <button type="submit" className="px-4 py-2 rounded-xl btn-primary text-xs font-bold">
                   Apply
@@ -254,8 +262,8 @@ export default function CartPage() {
             </div>
 
             {/* Price Breakdown */}
-            <div className="bg-surface-alt rounded-3xl border border-line p-6">
-              <h3 className="font-black text-base text-ink-900 mb-4 pb-4 border-b border-line">
+            <div className="bg-white/80 backdrop-blur-2xl rounded-3xl border border-white/80 p-6 shadow-md">
+              <h3 className="font-black text-base text-ink-900 mb-4 pb-4 border-b border-line/60">
                 Price Summary
               </h3>
 

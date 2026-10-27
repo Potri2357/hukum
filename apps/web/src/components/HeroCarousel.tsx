@@ -103,13 +103,13 @@ export function HeroCarousel() {
   };
 
   return (
-    <div className="relative overflow-hidden rounded-2xl bg-white border border-line mb-6 shadow-sm neuromorphic-card">
+    <div className="relative overflow-hidden rounded-2xl bg-white/75 backdrop-blur-2xl border border-white/80 mb-6 shadow-md neuromorphic-card">
       <div className={`absolute inset-0 bg-gradient-to-r ${slide.accentColor} pointer-events-none`} />
 
       <div className="max-w-7xl mx-auto px-5 py-6 sm:px-8 sm:py-7 flex flex-col md:flex-row items-center justify-between gap-6 relative z-10">
         {/* Left Copy (Compact & High Contrast) */}
         <div className="flex-1 min-w-0">
-          <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-spark-100 text-amber-800 text-[11px] font-black tracking-wider uppercase mb-2 border border-spark-200">
+          <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-spark-100/80 backdrop-blur-md text-amber-800 text-[11px] font-black tracking-wider uppercase mb-2 border border-spark-200">
             <Sparkles className="w-3 h-3 text-amber-600 fill-amber-600" />
             <span>{slide.tag}</span>
           </div>
@@ -151,7 +151,7 @@ export function HeroCarousel() {
 
             <Link
               href={`/products/${slide.slug}`}
-              className="px-5 py-2.5 rounded-xl bg-white hover:bg-surface-alt border border-line text-ink-900 text-xs font-bold flex items-center gap-1.5 shadow-2xs transition-all"
+              className="px-5 py-2.5 rounded-xl bg-white/80 hover:bg-white backdrop-blur-md border border-white/80 text-ink-900 text-xs font-bold flex items-center gap-1.5 shadow-2xs transition-all"
             >
               <span>Explore Specs</span>
               <ArrowRight className="w-3.5 h-3.5" />
@@ -160,11 +160,14 @@ export function HeroCarousel() {
         </div>
 
         {/* Right Media Frame (Compact Strict 1:1 Aspect Ratio) */}
-        <div className="w-48 h-48 sm:w-56 sm:h-56 rounded-2xl bg-[#FAFBFD] border border-line p-3 flex items-center justify-center flex-shrink-0 relative shadow-2xs overflow-hidden group">
+        <div className="w-48 h-48 sm:w-56 sm:h-56 rounded-2xl bg-white/60 backdrop-blur-md border border-white/80 p-3 flex items-center justify-center flex-shrink-0 relative shadow-inner overflow-hidden group">
           <Link href={`/products/${slide.slug}`} className="w-full h-full flex items-center justify-center">
             <img
               src={slide.image}
               alt={slide.title}
+              onError={(e) => {
+                (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=800&auto=format&fit=crop&q=80';
+              }}
               className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
             />
           </Link>
