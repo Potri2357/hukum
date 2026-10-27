@@ -36,8 +36,9 @@ export default function CheckoutPage() {
 
   // 3-D Secure Dialog State
   const [requires3DS, setRequires3DS] = useState(false);
-  const [otp3DS, setOtp3DS] = useState('');
+  const [otp3DS, setOtp3DS] = useState('123456');
   const [currentIntentId, setCurrentIntentId] = useState('');
+  const [currentOrderId, setCurrentOrderId] = useState('');
 
   // Processing State
   const [isProcessing, setIsProcessing] = useState(false);
@@ -70,7 +71,7 @@ export default function CheckoutPage() {
     setErrorMessage('');
 
     try {
-      // 1. Create Order with Idempotency Key
+      // 1. Create Order with Idempotency Key & Explicit Muthuvel Address
       const idempotencyKey = `idemp_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;
       const orderRes = await fetch('/api/v1/orders', {
         method: 'POST',
@@ -78,6 +79,14 @@ export default function CheckoutPage() {
         body: JSON.stringify({
           userId: 'usr_demo_shopper',
           items: cart.items,
+          address: {
+            name: 'Muthuvel',
+            street: '24, Gandhi Road, T. Nagar',
+            city: 'Chennai',
+            state: 'Tamil Nadu',
+            pincode: '600017',
+            phone: '+91 98401 23456',
+          },
           amount: {
             subtotal: cart.subtotal,
             discount: cart.couponDiscount || 0,
@@ -94,6 +103,10 @@ export default function CheckoutPage() {
       }
 
       const { order } = await orderRes.json();
+      setCurrentOrderId(order._id);
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('hukum_last_order_id', order._id);
+      }
 
       // If COD, confirmed immediately!
       if (paymentMethod === 'cod') {
@@ -166,7 +179,13 @@ export default function CheckoutPage() {
 
       const data = await res.json();
       if (data.status === 'SUCCEEDED') {
-        router.push(`/orders/${data.intent?.orderId || 'latest'}`);
+        const orderIdToRoute =
+          data.orderId ||
+          data.intent?.orderId ||
+          currentOrderId ||
+          (typeof window !== 'undefined' ? localStorage.getItem('hukum_last_order_id') : '') ||
+          'latest';
+        router.push(`/orders/${orderIdToRoute}`);
       } else {
         setErrorMessage(data.failureReason || '3-D Secure verification failed');
       }
@@ -217,10 +236,10 @@ export default function CheckoutPage() {
 
             <div className="p-4 rounded-xl border-2 border-spark-500 bg-spark-50/50 flex justify-between items-start">
               <div>
-                <p className="font-bold text-sm text-ink-900">Aarav Sharma</p>
-                <p className="text-xs text-ink-700 mt-1">124, 100ft Road, Indiranagar</p>
-                <p className="text-xs text-ink-700">Bengaluru, Karnataka - 560038</p>
-                <p className="text-xs text-ink-500 mt-2">Phone: +91 98765 43210</p>
+                <p className="font-bold text-sm text-ink-900">Muthuvel</p>
+                <p className="text-xs text-ink-700 mt-1">24, Gandhi Road, T. Nagar</p>
+                <p className="text-xs text-ink-700">Chennai, Tamil Nadu - 600017</p>
+                <p className="text-xs text-ink-500 mt-2">Phone: +91 98401 23456</p>
               </div>
               <span className="text-[10px] font-extrabold uppercase bg-spark-400 text-ink-900 px-2 py-0.5 rounded">
                 Default

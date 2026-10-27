@@ -167,6 +167,8 @@ paymentSimulatorRouter.post('/payments/sim/intents/:id/confirm', async (req: Req
   res.json({
     intentId: id,
     status: outcome,
+    orderId: intent.orderId,
+    intent: updated,
     failureReason,
     demoBadge: 'Demo payment — no real money is charged',
   });

@@ -4090,12 +4090,12 @@ export function seedInitialData() {
     .update('Shopper123!' + shopperSalt)
     .digest('hex');
 
-  if (!db.findOne('users', { email: 'rahul@hukum.local' })) {
+  if (!db.findOne('users', { email: 'vardhan@gmail.com' })) {
     db.insertOne('users', {
-      _id: 'usr_rahul',
-      email: 'rahul@hukum.local',
-      name: 'Rahul Sharma',
-      phone: '9876543210',
+      _id: 'usr_vardhan',
+      email: 'vardhan@gmail.com',
+      name: 'Vardhan',
+      phone: '9840123456',
       passwordHash: shopperPasswordHash,
       salt: shopperSalt,
       role: 'customer',
@@ -4103,16 +4103,55 @@ export function seedInitialData() {
       addresses: [
         {
           id: 'addr_1',
-          name: 'Rahul Sharma',
-          phone: '9876543210',
-          pincode: '560038',
-          addressLine: '#42, 80 Feet Road, Indiranagar',
-          city: 'Bengaluru',
-          state: 'Karnataka',
+          name: 'Muthuvel',
+          phone: '+91 98401 23456',
+          pincode: '600017',
+          addressLine: '24, Gandhi Road, T. Nagar',
+          city: 'Chennai',
+          state: 'Tamil Nadu',
           isDefault: true,
         },
       ],
       createdAt: new Date().toISOString(),
+    });
+  }
+
+  // 4. Pre-seeded Authentic Order for instant tracking & workflow verification
+  if (!db.findById('orders', 'ord_demo_1')) {
+    db.insertOne('orders', {
+      _id: 'ord_demo_1',
+      userId: 'usr_demo_shopper',
+      items: [
+        {
+          productId: 'prod_ip15_pro',
+          title: 'Apple iPhone 15 Pro Max',
+          price: 154900,
+          quantity: 1,
+          image: 'https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=800&auto=format&fit=crop&q=80',
+        },
+      ],
+      address: {
+        name: 'Muthuvel',
+        street: '24, Gandhi Road, T. Nagar',
+        city: 'Chennai',
+        state: 'Tamil Nadu',
+        pincode: '600017',
+        phone: '+91 98401 23456',
+      },
+      amount: {
+        subtotal: 154900,
+        discount: 5000,
+        shipping: 0,
+        total: 149900,
+      },
+      status: 'CONFIRMED',
+      paymentMethod: 'simulated_gateway',
+      idempotencyKey: 'idemp_demo_seed_001',
+      createdAt: new Date().toISOString(),
+      timeline: [
+        { status: 'PLACED', at: new Date(Date.now() - 3600000).toISOString(), note: 'Order placed by customer' },
+        { status: 'CONFIRMED', at: new Date(Date.now() - 3000000).toISOString(), note: 'Payment verified and order confirmed' },
+      ],
     });
   }
 

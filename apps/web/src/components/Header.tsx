@@ -97,13 +97,13 @@ export function Header() {
   // Google accounts for simulated One-Tap / OAuth picker
   const googleAccounts = [
     {
-      name: 'Rahul Sharma',
-      email: 'rahul.sharma@gmail.com',
-      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120&auto=format&fit=crop&q=80',
+      name: 'Vardhan',
+      email: 'vardhan@gmail.com',
+      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&auto=format&fit=crop&q=80',
     },
     {
-      name: 'Priya Patel',
-      email: 'priya.patel@gmail.com',
+      name: 'Nani',
+      email: 'nani@gmail.com',
       avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=120&auto=format&fit=crop&q=80',
     },
   ];
@@ -750,7 +750,7 @@ export function Header() {
                       required
                       value={registerName}
                       onChange={(e) => setRegisterName(e.target.value)}
-                      placeholder="e.g. Rahul Sharma"
+                      placeholder="e.g. Vardhan"
                       className="w-full px-3.5 py-2.5 rounded-xl border border-line focus:border-spark-500 focus:outline-none text-xs text-ink-900 font-medium"
                     />
                   </div>
