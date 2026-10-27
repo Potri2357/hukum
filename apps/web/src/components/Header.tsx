@@ -100,17 +100,17 @@ export function Header() {
   const searchRef = useRef<HTMLDivElement>(null);
   const accountRef = useRef<HTMLDivElement>(null);
 
-  // Google accounts for simulated One-Tap / OAuth picker
+  // Google accounts for simulated One-Tap / OAuth picker (Using Avatars instead of photos)
   const googleAccounts = [
     {
       name: 'Vardhan',
       email: 'vardhan@gmail.com',
-      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&auto=format&fit=crop&q=80',
+      avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Vardhan&backgroundColor=b6e3f4',
     },
     {
       name: 'Nani',
       email: 'nani@gmail.com',
-      avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=120&auto=format&fit=crop&q=80',
+      avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Nani&backgroundColor=ffd5dc',
     },
   ];
 
@@ -474,7 +474,10 @@ export function Header() {
                     <img
                       src={user.avatar}
                       alt={user.name}
-                      className="w-6 h-6 rounded-full object-cover border border-line shadow-xs"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src = `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(user.name || 'User')}`;
+                      }}
+                      className="w-6 h-6 rounded-full object-cover border border-line shadow-xs bg-spark-100"
                     />
                     {user.provider === 'google' && (
                       <span className="absolute -bottom-1 -right-1 bg-white rounded-full p-0.5 shadow-2xs">
@@ -483,7 +486,7 @@ export function Header() {
                     )}
                   </div>
                 ) : (
-                  <div className="w-6 h-6 rounded-full bg-emerald-100 text-emerald-800 flex items-center justify-center font-bold text-xs">
+                  <div className="w-6 h-6 rounded-full bg-spark-200 text-amber-900 border border-spark-300 flex items-center justify-center font-bold text-xs">
                     {user.name.charAt(0)}
                   </div>
                 )}
@@ -507,9 +510,16 @@ export function Header() {
                 <div className="px-4 py-2.5 border-b border-line">
                   <div className="flex items-center gap-2.5 mb-1">
                     {user.avatar ? (
-                      <img src={user.avatar} alt="" className="w-8 h-8 rounded-full object-cover border border-line" />
+                      <img
+                        src={user.avatar}
+                        alt=""
+                        onError={(e) => {
+                          (e.target as HTMLImageElement).src = `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(user.name || 'User')}`;
+                        }}
+                        className="w-8 h-8 rounded-full object-cover border border-line bg-spark-100"
+                      />
                     ) : (
-                      <div className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-800 flex items-center justify-center font-bold text-xs">
+                      <div className="w-8 h-8 rounded-full bg-spark-200 text-amber-900 border border-spark-300 flex items-center justify-center font-bold text-xs">
                         {user.name.charAt(0)}
                       </div>
                     )}
@@ -850,12 +860,15 @@ export function Header() {
                   key={i}
                   type="button"
                   onClick={() => handleGoogleSignIn(acc)}
-                  className="w-full p-3 rounded-2xl border border-line hover:border-blue-400 hover:bg-blue-50/40 flex items-center gap-3 transition-all text-left shadow-2xs group"
+                  className="w-full p-3 rounded-2xl border border-line hover:border-blue-400 hover:bg-blue-50/40 flex items-center gap-3.5 transition-all text-left shadow-2xs group"
                 >
                   <img
                     src={acc.avatar}
                     alt={acc.name}
-                    className="w-9 h-9 rounded-full object-cover border border-line"
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).src = `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(acc.name)}`;
+                    }}
+                    className="w-10 h-10 rounded-full object-cover border border-line bg-surface-alt shadow-2xs group-hover:scale-105 transition-transform"
                   />
                   <div className="min-w-0 flex-1">
                     <p className="text-xs font-bold text-ink-900 group-hover:text-blue-700">{acc.name}</p>
@@ -891,9 +904,9 @@ export function Header() {
                     handleGoogleSignIn({
                       name: customGoogleName.trim() || customGoogleEmail.split('@')[0],
                       email: customGoogleEmail.trim(),
-                      avatar: `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(
+                      avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(
                         customGoogleName || customGoogleEmail
-                      )}`,
+                      )}&backgroundColor=b6e3f4,ffd5dc`,
                     })
                   }
                   className="w-full py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs transition-colors shadow-2xs disabled:opacity-50"

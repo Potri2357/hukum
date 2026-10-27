@@ -250,7 +250,7 @@ authRouter.post('/google', createRateLimiter('auth_login'), (req: Request, res: 
       _id: `usr_g_${crypto.randomBytes(6).toString('hex')}`,
       email: cleanEmail,
       name: name || cleanEmail.split('@')[0],
-      avatar: avatar || `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(name || cleanEmail)}`,
+      avatar: avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(name || cleanEmail)}&backgroundColor=b6e3f4,ffd5dc`,
       googleId: googleId || `gid_${crypto.randomBytes(8).toString('hex')}`,
       provider: 'google',
       role: 'customer',
