@@ -65,7 +65,7 @@ export function Footer() {
           <div>
             <h4 className="font-bold text-white text-xs uppercase tracking-wider mb-3">Customer Care</h4>
             <ul className="space-y-2">
-              <li><Link href="/orders/ord_demo_1" className="hover:text-spark-400 transition-colors">Track Orders</Link></li>
+              <li><Link href="/orders" className="hover:text-spark-400 transition-colors">Track Orders</Link></li>
               <li><Link href="/cart" className="hover:text-spark-400 transition-colors">Shopping Cart</Link></li>
               <li><Link href="/seller" className="hover:text-spark-400 transition-colors">Seller Dashboard</Link></li>
               <li><Link href="/" className="hover:text-spark-400 transition-colors">Shipping & Delivery</Link></li>

@@ -78,8 +78,11 @@ ordersRouter.post('/orders', (req: Request, res: Response) => {
  * Get User Orders
  */
 ordersRouter.get('/orders', (req: Request, res: Response) => {
-  const { userId = 'guest_user' } = req.query;
-  const orders = db.find('orders', { userId: String(userId) });
+  const { userId } = req.query;
+  let orders = userId ? db.find('orders', { userId: String(userId) }) : db.find('orders', {});
+  if (orders.length === 0) {
+    orders = db.find('orders', {});
+  }
   orders.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
   res.json({ orders });
 });

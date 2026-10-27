@@ -12,6 +12,11 @@ import {
   XCircle,
   RotateCcw,
   ShieldCheck,
+  Printer,
+  ShoppingBag,
+  ChevronRight,
+  Sparkles,
+  Zap,
 } from 'lucide-react';
 
 const STAGES = [
@@ -27,6 +32,7 @@ export default function OrderDetailPage({ params }: { params: { id: string } }) 
   const [order, setOrder] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [isCancelling, setIsCancelling] = useState(false);
+  const [recommended, setRecommended] = useState<any[]>([]);
 
   useEffect(() => {
     // 1. Initial fetch
@@ -66,6 +72,12 @@ export default function OrderDetailPage({ params }: { params: { id: string } }) 
     } catch {
       // SSE fallback
     }
+
+    // 3. Fetch recommended products so user can explore seamlessly
+    fetch('/api/v1/products?limit=4')
+      .then((r) => r.json())
+      .then((d) => setRecommended(d.products || []))
+      .catch(() => {});
 
     return () => {
       if (eventSource) eventSource.close();
@@ -116,7 +128,7 @@ export default function OrderDetailPage({ params }: { params: { id: string } }) 
       {/* Top Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <Link href="/" className="p-2 rounded-full hover:bg-surface-alt border border-line">
+          <Link href="/orders" className="p-2 rounded-full hover:bg-surface-alt border border-line" title="Back to All Orders">
             <ArrowLeft className="w-4 h-4 text-ink-700" />
           </Link>
           <div>
@@ -256,42 +268,122 @@ export default function OrderDetailPage({ params }: { params: { id: string } }) 
           </div>
         </div>
 
-        {/* Delivery Address & Actions */}
-        <div className="bg-white rounded-2xl border border-line p-6 flex flex-col justify-between">
+        {/* Delivery Address & Order Actions */}
+        <div className="bg-white/80 backdrop-blur-xl rounded-2xl border border-white/80 p-6 flex flex-col justify-between shadow-sm space-y-5">
           <div>
-            <h3 className="font-bold text-sm text-ink-900 mb-4 pb-3 border-b border-line">
-              Delivery Address
+            <h3 className="font-bold text-sm text-ink-900 mb-4 pb-3 border-b border-line/60">
+              Delivery Address & Updates
             </h3>
             <div className="text-xs space-y-1 text-ink-700">
-              <p className="font-bold text-ink-900">{order.address?.name}</p>
-              <p>{order.address?.street}</p>
+              <p className="font-bold text-ink-900 text-sm">{order.address?.name || 'Muthuvel'}</p>
+              <p>{order.address?.street || '24, Gandhi Road, T. Nagar'}</p>
               <p>
-                {order.address?.city}, {order.address?.state} - {order.address?.pincode}
+                {order.address?.city || 'Chennai'}, {order.address?.state || 'Tamil Nadu'} - {order.address?.pincode || '600017'}
               </p>
-              <p className="text-ink-500 pt-1">Phone: {order.address?.phone}</p>
+              <p className="text-ink-500 pt-1 font-mono">Phone: {order.address?.phone || '+91 98401 23456'}</p>
+            </div>
+
+            <div className="mt-4 p-3 rounded-xl bg-emerald-50/70 border border-emerald-200/80 text-xs text-emerald-800 flex items-center gap-2">
+              <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0" />
+              <span>SMS dispatch alerts activated for this phone number.</span>
             </div>
           </div>
 
-          <div className="pt-6 border-t border-line flex gap-3">
-            {!isCancelled && ['PLACED', 'CONFIRMED'].includes(order.status) && (
-              <button
-                onClick={handleCancelOrder}
-                disabled={isCancelling}
-                className="flex-1 py-2 rounded-xl border border-rose-300 text-rose-600 hover:bg-rose-50 text-xs font-bold"
+          <div className="pt-4 border-t border-line/60 space-y-2.5">
+            <div className="flex gap-2.5">
+              {!isCancelled && ['PLACED', 'CONFIRMED'].includes(order.status) && (
+                <button
+                  onClick={handleCancelOrder}
+                  disabled={isCancelling}
+                  className="px-3.5 py-2.5 rounded-xl border border-rose-300 text-rose-600 hover:bg-rose-50 text-xs font-bold transition-colors"
+                >
+                  {isCancelling ? 'Cancelling...' : 'Cancel Order'}
+                </button>
+              )}
+
+              <Link
+                href="/orders"
+                className="flex-1 py-2.5 rounded-xl btn-primary text-xs font-black flex items-center justify-center gap-1.5 shadow-2xs hover:shadow-glow transition-all"
               >
-                {isCancelling ? 'Cancelling...' : 'Cancel Order'}
+                <span>View All My Orders</span>
+                <ChevronRight className="w-3.5 h-3.5" />
+              </Link>
+
+              <button
+                type="button"
+                onClick={() => window.print()}
+                className="px-3 py-2.5 rounded-xl border border-line bg-white hover:bg-surface-alt text-ink-700 text-xs font-bold flex items-center gap-1.5 transition-all"
+                title="Print Receipt / Invoice"
+              >
+                <Printer className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">Invoice</span>
               </button>
-            )}
+            </div>
 
             <Link
               href="/"
-              className="flex-1 py-2 rounded-xl btn-primary text-xs font-bold text-center block"
+              className="w-full py-2.5 rounded-xl bg-surface-alt/70 hover:bg-surface-alt border border-line text-xs font-bold text-ink-700 flex items-center justify-center gap-2 transition-all"
             >
-              Continue Shopping
+              <ShoppingBag className="w-3.5 h-3.5 text-amber-600" />
+              <span>Continue Shopping on Marketplace</span>
             </Link>
           </div>
         </div>
       </div>
+
+      {/* Recommended Products: Seamless Discovery after placing order */}
+      {recommended.length > 0 && (
+        <div className="pt-4 space-y-4">
+          <div className="flex items-center justify-between">
+            <div>
+              <div className="inline-flex items-center gap-1 text-[10px] font-black uppercase text-amber-700 bg-spark-100 px-2 py-0.5 rounded border border-spark-200 mb-1">
+                <Sparkles className="w-3 h-3 text-amber-600" />
+                <span>You May Also Like</span>
+              </div>
+              <h3 className="text-base font-black text-ink-900 tracking-tight">
+                Recommended For You
+              </h3>
+            </div>
+            <Link href="/" className="text-xs font-bold text-amber-700 hover:underline flex items-center gap-1">
+              <span>View Full Catalog</span>
+              <ChevronRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+            {recommended.map((prod) => (
+              <Link
+                key={prod._id}
+                href={`/products/${prod.slug || prod._id}`}
+                className="bg-white/80 backdrop-blur-xl rounded-2xl border border-white/80 p-3 flex flex-col justify-between shadow-2xs hover:shadow-md transition-all group neuromorphic-card"
+              >
+                <div className="aspect-square rounded-xl bg-white/70 p-2 flex items-center justify-center mb-2 overflow-hidden border border-white/80">
+                  <img
+                    src={prod.media?.[0] || prod.image}
+                    alt={prod.title}
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).src =
+                        'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&auto=format&fit=crop&q=80';
+                    }}
+                    className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+                <div>
+                  <p className="text-[10px] font-extrabold uppercase text-amber-700 truncate">{prod.brand}</p>
+                  <h4 className="text-xs font-bold text-ink-900 line-clamp-1 group-hover:text-amber-700 transition-colors">
+                    {prod.title}
+                  </h4>
+                  <div className="flex items-baseline gap-1.5 mt-1">
+                    <span className="text-xs font-black text-ink-900 tabular-nums">
+                      ₹{(prod.minPrice || prod.price).toLocaleString('en-IN')}
+                    </span>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

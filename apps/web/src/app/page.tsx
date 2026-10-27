@@ -47,6 +47,14 @@ export default function HomePage({
   const [inStockOnly, setInStockOnly] = useState<boolean>(false);
   const [brandSearch, setBrandSearch] = useState('');
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
+  const [activeOrderId, setActiveOrderId] = useState<string | null>(null);
+
+  useEffect(() => {
+    try {
+      const lastId = localStorage.getItem('hukum_last_order_id');
+      if (lastId) setActiveOrderId(lastId);
+    } catch {}
+  }, []);
 
   // Sync activeCategory with URL searchParams
   useEffect(() => {
@@ -516,6 +524,37 @@ export default function HomePage({
 
   return (
     <div className="pt-4 sm:pt-6 pb-12 space-y-6">
+      {/* Active In-Transit Order Banner */}
+      {activeOrderId && (
+        <div className="bg-gradient-to-r from-emerald-500/10 via-spark-500/15 to-amber-500/10 backdrop-blur-xl border border-emerald-300/80 rounded-2xl p-3.5 sm:p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-xs animate-in fade-in duration-300">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center flex-shrink-0 shadow-sm">
+              <Truck className="w-5 h-5" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="text-[10px] font-extrabold uppercase tracking-wider text-emerald-800 bg-emerald-100/90 px-2 py-0.5 rounded">
+                  Order In-Transit
+                </span>
+                <span className="text-xs text-ink-500 font-mono">#{activeOrderId}</span>
+              </div>
+              <p className="text-xs sm:text-sm font-black text-ink-900 mt-0.5">
+                Your order is confirmed & placed! Tracking live updates.
+              </p>
+            </div>
+          </div>
+          <div className="flex items-center gap-2 self-end sm:self-auto">
+            <Link
+              href={`/orders/${activeOrderId}`}
+              className="px-4 py-2 rounded-xl btn-primary text-xs font-black flex items-center gap-1.5 shadow-2xs hover:shadow-glow transition-all"
+            >
+              <span>Track Live Status</span>
+              <ChevronRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+        </div>
+      )}
+
       {/* 
         CONDITIONAL RENDERING: 
         When category icons or search is clicked (isFilteredView is true), 

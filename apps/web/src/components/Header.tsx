@@ -522,9 +522,9 @@ export function Header() {
 
                 <div className="py-1 text-xs">
                   <Link
-                    href="/orders/ord_demo_1"
+                    href="/orders"
                     onClick={() => setIsAccountDropdownOpen(false)}
-                    className="flex items-center gap-2.5 px-4 py-2 hover:bg-surface-alt text-ink-700"
+                    className="flex items-center gap-2.5 px-4 py-2 hover:bg-surface-alt text-ink-700 font-semibold"
                   >
                     <Package className="w-3.5 h-3.5 text-amber-600" />
                     <span>My Orders</span>
