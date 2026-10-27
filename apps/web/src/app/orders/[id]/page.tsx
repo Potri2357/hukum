@@ -142,18 +142,18 @@ export default function OrderDetailPage({ params }: { params: { id: string } }) 
         </div>
 
         <div className="text-right">
-          <span className="text-xs font-mono text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200 font-bold flex items-center gap-1.5">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
+          <span className="text-xs font-mono text-amber-900 bg-spark-100/90 px-3 py-1 rounded-full border border-spark-300 font-bold flex items-center gap-1.5 shadow-2xs">
+            <span className="w-2 h-2 rounded-full bg-amber-500 animate-ping" />
             Live SSE Stream
           </span>
         </div>
       </div>
 
-      {/* Order Confirmed Milestone Banner */}
-      <div className="bg-gradient-to-r from-emerald-50 via-spark-50 to-amber-50 border border-emerald-200/80 rounded-2xl p-4 sm:p-5 flex items-start sm:items-center justify-between gap-4 shadow-sm">
+      {/* Order Confirmed Milestone Banner (Harmonized with website color palette) */}
+      <div className="bg-gradient-to-r from-spark-50 via-amber-50/70 to-orange-50/30 border border-spark-300/80 rounded-2xl p-4 sm:p-5 flex items-start sm:items-center justify-between gap-4 shadow-xs neuromorphic-card">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center flex-shrink-0 shadow-sm">
-            <CheckCircle2 className="w-5 h-5" />
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-spark-400 via-spark-500 to-amber-500 text-ink-900 flex items-center justify-center flex-shrink-0 shadow-xs border border-spark-300">
+            <CheckCircle2 className="w-5 h-5 text-ink-900 stroke-[2.4]" />
           </div>
           <div>
             <h2 className="text-sm sm:text-base font-black text-ink-900">
@@ -165,7 +165,7 @@ export default function OrderDetailPage({ params }: { params: { id: string } }) 
           </div>
         </div>
         <div className="hidden sm:block text-right">
-          <span className="text-xs font-bold text-emerald-700 bg-white/80 px-3 py-1 rounded-full border border-emerald-200">
+          <span className="text-xs font-bold text-amber-900 bg-spark-100 px-3 py-1 rounded-full border border-spark-300">
             Est. Delivery Tomorrow
           </span>
         </div>

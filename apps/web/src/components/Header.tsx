@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import {
@@ -90,6 +91,11 @@ export function Header() {
   const [customGoogleName, setCustomGoogleName] = useState('');
   const [loginError, setLoginError] = useState('');
   const [isLoggingIn, setIsLoggingIn] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const searchRef = useRef<HTMLDivElement>(null);
   const accountRef = useRef<HTMLDivElement>(null);
@@ -611,9 +617,9 @@ export function Header() {
       </nav>
 
       {/* Pincode Modal */}
-      {isPinModalOpen && (
-        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in duration-150">
-          <div className="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl border border-line">
+      {isPinModalOpen && mounted && createPortal(
+        <div className="fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 overflow-y-auto animate-in fade-in duration-150">
+          <div className="relative my-auto bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl border border-line">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-base font-bold text-ink-900 flex items-center gap-2">
                 <MapPin className="w-5 h-5 text-spark-500" /> Enter Delivery Pincode
@@ -654,46 +660,50 @@ export function Header() {
               </button>
             </form>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
 
       {/* Complete End-to-End Login & Google Auth Modal */}
-      {isLoginModalOpen && (
-        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in duration-150">
-          <div className="bg-white rounded-3xl max-w-md w-full overflow-hidden shadow-2xl border border-line relative animate-in zoom-in-95 duration-200">
-            {/* Close Button */}
-            <button
-              onClick={() => {
-                setIsLoginModalOpen(false);
-                setLoginError('');
-              }}
-              className="absolute top-4 right-4 text-ink-400 hover:text-ink-900 p-1.5 rounded-full hover:bg-surface-alt z-10 transition-colors"
-              aria-label="Close login dialog"
-            >
-              <X className="w-5 h-5" />
-            </button>
+      {isLoginModalOpen && mounted && createPortal(
+        <div className="fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 overflow-y-auto animate-in fade-in duration-150">
+          <div className="relative my-auto w-full max-w-md max-h-[92vh] flex flex-col bg-white rounded-3xl shadow-2xl border border-line overflow-hidden animate-in zoom-in-95 duration-200">
+            {/* Modal Header */}
+            <div className="relative bg-gradient-to-r from-spark-400 via-spark-500 to-amber-500 px-5 py-4 sm:px-6 sm:py-5 text-ink-900 flex-shrink-0">
+              {/* Close Button */}
+              <button
+                onClick={() => {
+                  setIsLoginModalOpen(false);
+                  setLoginError('');
+                }}
+                className="absolute top-3.5 right-3.5 text-ink-800 hover:text-ink-950 p-1.5 rounded-full hover:bg-white/30 transition-colors"
+                aria-label="Close login dialog"
+              >
+                <X className="w-5 h-5 stroke-[2.5]" />
+              </button>
 
-            {/* Modal Banner Header */}
-            <div className="bg-gradient-to-r from-spark-400 via-spark-500 to-amber-500 p-6 text-ink-900">
-              <span className="text-[10px] font-black uppercase tracking-widest bg-white/70 px-2.5 py-0.5 rounded-full">
-                Hukum Verified Access
-              </span>
-              <h2 className="text-2xl font-black mt-2">
+              <div className="flex items-center gap-2 mb-1">
+                <span className="text-[10px] font-black uppercase tracking-widest bg-white/80 px-2.5 py-0.5 rounded-full text-ink-900">
+                  Hukum Access
+                </span>
+              </div>
+              <h2 className="text-xl sm:text-2xl font-black">
                 {authMode === 'signin' ? 'Sign In to Hukum' : 'Create an Account'}
               </h2>
-              <p className="text-xs text-ink-800 font-medium mt-1">
+              <p className="text-xs text-ink-800 font-medium mt-0.5">
                 Access your orders, personalized wishlist, and express checkout.
               </p>
             </div>
 
-            <div className="p-6 space-y-4">
+            {/* Modal Body */}
+            <div className="p-5 sm:p-6 space-y-3.5 overflow-y-auto">
               {/* Primary Google Login Button */}
               <div>
                 <button
                   type="button"
                   onClick={() => setIsGoogleModalOpen(true)}
                   disabled={isLoggingIn}
-                  className="w-full py-3 px-4 rounded-xl border border-line bg-white hover:bg-surface-alt hover:border-ink-300 text-ink-900 font-bold text-xs flex items-center justify-center gap-3 transition-all shadow-2xs hover:shadow-sm active:scale-98"
+                  className="w-full py-2.5 px-4 rounded-xl border border-line bg-white hover:bg-surface-alt hover:border-ink-300 text-ink-900 font-bold text-xs flex items-center justify-center gap-2.5 transition-all shadow-2xs hover:shadow-sm active:scale-98"
                 >
                   <GoogleIcon className="w-4 h-4" />
                   <span>Continue with Google</span>
@@ -701,7 +711,7 @@ export function Header() {
               </div>
 
               {/* Divider */}
-              <div className="relative flex items-center justify-center my-2">
+              <div className="relative flex items-center justify-center my-1.5">
                 <div className="border-t border-line w-full" />
                 <span className="bg-white px-3 text-[11px] font-semibold text-ink-400 absolute">
                   or with email / mobile
@@ -741,7 +751,7 @@ export function Header() {
               </div>
 
               {/* Form Input */}
-              <form onSubmit={handleCustomLogin} className="space-y-3.5">
+              <form onSubmit={handleCustomLogin} className="space-y-3">
                 {authMode === 'register' && (
                   <div>
                     <label className="block text-xs font-bold text-ink-700 mb-1">Full Name</label>
@@ -790,7 +800,7 @@ export function Header() {
                 <button
                   type="submit"
                   disabled={isLoggingIn}
-                  className="w-full py-3 rounded-xl btn-primary text-xs font-black shadow-sm active:scale-98 transition-all"
+                  className="w-full py-2.5 rounded-xl btn-primary text-xs font-black shadow-sm active:scale-98 transition-all"
                 >
                   {isLoggingIn
                     ? 'Processing...'
@@ -805,13 +815,14 @@ export function Header() {
               </p>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
 
       {/* Google Sign-In Account Selector Dialog (Realistic OAuth Flow) */}
-      {isGoogleModalOpen && (
-        <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in duration-150">
-          <div className="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl border border-line relative animate-in zoom-in-95 duration-150">
+      {isGoogleModalOpen && mounted && createPortal(
+        <div className="fixed inset-0 z-[100] bg-black/70 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 overflow-y-auto animate-in fade-in duration-150">
+          <div className="relative my-auto bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl border border-line animate-in zoom-in-95 duration-150">
             {/* Close */}
             <button
               onClick={() => setIsGoogleModalOpen(false)}
@@ -896,7 +907,8 @@ export function Header() {
               To continue, Google will share your name, email address, and profile picture with Hukum.
             </p>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </header>
   );

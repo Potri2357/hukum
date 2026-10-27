@@ -524,16 +524,16 @@ export default function HomePage({
 
   return (
     <div className="pt-4 sm:pt-6 pb-12 space-y-6">
-      {/* Active In-Transit Order Banner */}
+      {/* Active In-Transit Order Banner (Matched to Website Color Palette) */}
       {activeOrderId && (
-        <div className="bg-gradient-to-r from-emerald-500/10 via-spark-500/15 to-amber-500/10 backdrop-blur-xl border border-emerald-300/80 rounded-2xl p-3.5 sm:p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-xs animate-in fade-in duration-300">
+        <div className="bg-gradient-to-r from-spark-100/90 via-amber-50/80 to-spark-50/90 backdrop-blur-xl border border-spark-300/90 rounded-2xl p-3.5 sm:p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-2xs neuromorphic-card animate-in fade-in duration-300">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center flex-shrink-0 shadow-sm">
-              <Truck className="w-5 h-5" />
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-spark-400 via-spark-500 to-amber-500 text-ink-900 flex items-center justify-center flex-shrink-0 shadow-xs border border-spark-300">
+              <Truck className="w-5 h-5 stroke-[2.2]" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <span className="text-[10px] font-extrabold uppercase tracking-wider text-emerald-800 bg-emerald-100/90 px-2 py-0.5 rounded">
+                <span className="text-[10px] font-extrabold uppercase tracking-wider text-amber-900 bg-spark-200/90 border border-spark-300/80 px-2 py-0.5 rounded">
                   Order In-Transit
                 </span>
                 <span className="text-xs text-ink-500 font-mono">#{activeOrderId}</span>
